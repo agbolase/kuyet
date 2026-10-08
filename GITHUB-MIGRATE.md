@@ -6,19 +6,33 @@ On the **new** GitHub user or org: **New repository** → name e.g. `kuyet` → 
 
 ## 2. Push from this machine
 
-Replace `NEWUSER` with the GitHub username or org:
+This clone is configured as:
+
+| Remote     | URL |
+|-----------|-----|
+| `melody`  | `git@github.com:Melody4063/kuyet.git` |
+| `agbolase`| `git@github.com:agbolase/kuyet.git` (backup) |
 
 ```bash
 cd /home/agbolase/Projects/Kuyet
-git remote rename origin old-origin    # keeps agbolase/kuyet as backup remote
-git remote add origin git@github.com:NEWUSER/kuyet.git
-git push -u origin main
+git push -u melody main
 ```
 
-If SSH is only set up for `agbolase`, either:
+If SSH fails with **Permission denied to agbolase**, this PC’s key is tied to the `agbolase` account. Use one of:
 
-- Add an SSH key to the **new** GitHub account, or  
-- Use HTTPS: `git remote add origin https://github.com/NEWUSER/kuyet.git` and a **Personal Access Token** when prompted.
+**A — Personal access token (quickest)**  
+On GitHub as **Melody4063**: Settings → Developer settings → Fine-grained token → repo access `kuyet` → Contents read/write.
+
+```bash
+cd /home/agbolase/Projects/Kuyet
+git remote set-url melody https://github.com/Melody4063/kuyet.git
+git push -u melody main
+# Username: Melody4063
+# Password: paste the token (not your GitHub password)
+```
+
+**B — SSH key on Melody4063**  
+Add this machine’s public key (`~/.ssh/id_ed25519.pub` or `id_rsa.pub`) under **Melody4063** → Settings → SSH keys, then `git push -u melody main` again.
 
 ## 3. Reconnect Codemagic
 
