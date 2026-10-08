@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Large training checkpoints (commit .tflite + class_names.json instead).
+models/*.keras
+models/training_history.json
+
+# Web app runtime data
+data/scan_logs/
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies

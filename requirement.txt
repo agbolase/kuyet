@@ -1,0 +1,11 @@
+tensorflow>=2.16,<2.22
+numpy
+pandas
+matplotlib
+scikit-learn
+seaborn
+pillow
+opencv-python-headless
+streamlit>=1.40
+gTTS
+SpeechRecognition

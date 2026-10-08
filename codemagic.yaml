@@ -1,0 +1,65 @@
+# TomatoCare — offline Flutter Android APK on Codemagic.
+# https://docs.codemagic.io/yaml/yaml-getting-started/
+#
+# Before first build:
+#   1. Push this repo to GitHub / GitLab / Bitbucket (codemagic.yaml at repo root).
+#   2. Commit mobile/assets/models/*.tflite (run scripts/export_mobile_assets.py locally), or
+#      commit models/*.tflite at repo root so CI can export them.
+#   3. In Codemagic → Team settings → Code signing identities, upload a keystore and set
+#      reference name to match android_signing below (or remove android_signing for debug-signed APK).
+
+workflows:
+  tomatocare-android:
+    name: TomatoCare Android (offline)
+    max_build_duration: 120
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      java: 17
+      # Optional: upload keystore in Codemagic UI, then uncomment and set your reference name.
+      # android_signing:
+      #   - tomatocare_keystore
+      vars:
+        PACKAGE_NAME: com.tomatocare.tomato_care
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+        - pattern: master
+          include: true
+    scripts:
+      - name: Install Python deps for asset export
+        script: |
+          python3 -m pip install --quiet pillow numpy
+      - name: Bundle models and field guides
+        script: |
+          python3 scripts/export_mobile_assets.py
+          test -f mobile/assets/models/hortivision_model.tflite
+          test -f mobile/assets/models/class_names.json
+      - name: Set up Android local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/mobile/android/local.properties"
+      - name: Flutter pub get
+        script: |
+          cd mobile
+          flutter pub get
+      - name: Static analysis
+        script: |
+          cd mobile
+          flutter analyze
+      - name: Build release APK
+        script: |
+          cd mobile
+          flutter build apk --release
+    artifacts:
+      - mobile/build/app/outputs/flutter-apk/*.apk
+      - mobile/build/app/outputs/apk/release/*.apk
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - you@yourdomain.com
+    #     notify:
+    #       success: true
+    #       failure: true

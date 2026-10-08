@@ -1,0 +1,40 @@
+{
+  "classes": [
+    "Tomato_Bacterial_canker",
+    "Tomato_Bacterial_spot",
+    "Tomato_Early_blight",
+    "Tomato_Late_blight",
+    "Tomato_Leaf_mold",
+    "Tomato_Mosaic_virus",
+    "Tomato_Septoria_leaf_spot",
+    "Tomato_Spider_mites",
+    "Tomato_Target_spot",
+    "Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato_healthy"
+  ],
+  "display_names": {
+    "Tomato_Bacterial_canker": "Bacterial Canker",
+    "Tomato_Bacterial_spot": "Bacterial Spot",
+    "Tomato_Early_blight": "Early Blight",
+    "Tomato_Late_blight": "Late Blight",
+    "Tomato_Leaf_mold": "Leaf Mold",
+    "Tomato_Mosaic_virus": "Mosaic Virus",
+    "Tomato_Septoria_leaf_spot": "Septoria Leaf Spot",
+    "Tomato_Spider_mites": "Two-Spotted Spider Mites",
+    "Tomato_Target_spot": "Target Spot",
+    "Tomato_Yellow_Leaf_Curl_Virus": "Yellow Leaf Curl Virus",
+    "Tomato_healthy": "Healthy"
+  },
+  "image_size": 224,
+  "input_range": [
+    0,
+    255
+  ],
+  "letterbox": false,
+  "crop": "square_cover",
+  "architecture": "EfficientNetV2B0",
+  "preprocess": "efficientnetv2_builtin",
+  "val_accuracy": 0.2903225806451613,
+  "train_images": 40,
+  "val_images": 31
+}
