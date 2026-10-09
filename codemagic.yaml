@@ -12,8 +12,8 @@ workflows:
   tomatocare-android:
     name: TomatoCare Android (offline)
     max_build_duration: 120
-    # Free Codemagic plans use `linux` (linux_x2 needs a paid instance type).
-    instance_type: linux
+    # Free personal plan: mac_mini_m2 (500 min/month). linux_x2 needs billing enabled.
+    instance_type: mac_mini_m2
     environment:
       flutter: stable
       java: 17
